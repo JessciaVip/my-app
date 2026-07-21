@@ -1,0 +1,33 @@
+/* ==================== 可调列宽表格样式 ==================== */
+
+/* 表头单元格：relative 定位为拖拽手柄提供定位基准 */
+.resizable-th {
+  position: relative;
+}
+
+/* 最后一列留出右侧空间，防止拖拽手柄被滚动容器裁剪 */
+.resizable-th:last-child {
+  padding-right: 8px;
+}
+
+/* 拖拽手柄：绝对定位在 th 右侧边缘，hover 时显示 col-resize 光标 */
+.resize-handle {
+  position: absolute;
+  right: -4px;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+  cursor: col-resize;
+  z-index: 10;
+}
+
+/* 蓝线指示器：贯穿整个表格高度，纯 DOM 操作控制显隐和位置 */
+.resize-indicator {
+  position: absolute;
+  top: 0;
+  width: 0;
+  border-left: 2px solid #1890ff;
+  pointer-events: none;
+  z-index: 10;
+  will-change: left;
+}

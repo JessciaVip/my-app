@@ -1,0 +1,58 @@
+.LandingPage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.LandingPage-content {
+  text-align: center;
+  color: #fff;
+}
+
+.LandingPage-title {
+  font-size: 48px;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.LandingPage-description {
+  font-size: 18px;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.LandingPage-nav {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.LandingPage-button {
+  display: inline-block;
+  padding: 14px 48px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #667eea;
+  background: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.LandingPage-button-secondary {
+  color: #fff;
+  background: transparent;
+  border: 2px solid #fff;
+}
+
+.LandingPage-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.LandingPage-button-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+}

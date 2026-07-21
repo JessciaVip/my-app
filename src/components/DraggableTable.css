@@ -1,0 +1,40 @@
+.draggable-th {
+  position: relative;
+}
+
+.draggable-th .drag-hint {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #999;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.draggable-th:hover .drag-hint {
+  opacity: 1;
+}
+
+.insert-indicator {
+  position: absolute;
+  top: 0;
+  width: 0;
+  border-left: 1px solid #1890ff;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.drag-overlay-table {
+  border-collapse: collapse;
+  opacity: 0.6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.drag-overlay-th,
+.drag-overlay-td {
+  border: 1px solid #f0f0f0;
+  white-space: nowrap;
+}

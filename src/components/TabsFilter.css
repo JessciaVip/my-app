@@ -1,0 +1,264 @@
+.tabs-filter {
+  padding: 24px;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
+
+.tabs-filter-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.tabs-filter-header .back-button {
+  position: static;
+  margin-left: auto;
+}
+
+.tabs-filter-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.tabs-filter-tabs-wrapper {
+  position: relative;
+}
+
+/* ==================== Custom Tabs Bar ==================== */
+
+.custom-tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: #fafafa;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.custom-tabs-viewport {
+  flex: 1;
+  overflow: hidden;
+}
+
+.custom-tabs-list {
+  display: flex;
+  flex-shrink: 0;
+}
+
+/* ==================== Custom Tab ==================== */
+
+.custom-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.custom-tab:hover {
+  background: #e6f4ff;
+}
+
+.custom-tab-active {
+  background: #fff;
+  border-color: #e8e8e8;
+  box-shadow: 1px 0 0 #fff;
+}
+
+.custom-tab-active:hover {
+  background: #fff;
+}
+
+.custom-tab-dragging {
+  opacity: 0.4;
+}
+
+/* ==================== Drag Handle ==================== */
+
+.custom-tab-drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #bfbfbf;
+  cursor: grab;
+  transition: color 0.2s;
+  padding: 0 2px;
+}
+
+.custom-tab-drag-handle:hover {
+  color: #1677ff;
+}
+
+.custom-tab-drag-handle:active {
+  cursor: grabbing;
+}
+
+.custom-tab-drag-handle-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #1677ff;
+}
+
+/* ==================== Tab Label ==================== */
+
+.custom-tab-label {
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  color: #333;
+}
+
+.custom-tab-active .custom-tab-label {
+  color: #1677ff;
+  font-weight: 500;
+}
+
+/* ==================== Tab More Icon ==================== */
+
+.custom-tab-more {
+  font-size: 14px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  margin-left: 4px;
+}
+
+.custom-tab-more:hover {
+  opacity: 1;
+}
+
+/* ==================== Drag Overlay ==================== */
+
+.custom-tab-overlay {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #1677ff;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  background: #fff;
+  cursor: grabbing;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  opacity: 1 !important;
+}
+
+/* ==================== Tab Content ==================== */
+
+.tab-content {
+  padding: 0;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+}
+
+.tab-content-inner {
+  padding: 24px;
+  min-height: 200px;
+}
+
+/* ==================== Scroll Arrows ==================== */
+
+.scroll-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+  padding: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+
+.scroll-arrow:hover {
+  color: #1677ff;
+  border-color: #1677ff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.scroll-arrow-left {
+  margin-right: 4px;
+}
+
+.scroll-arrow-right {
+  margin-right: 8px;
+}
+
+.scroll-arrow-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.scroll-arrow-disabled:hover {
+  color: #666;
+  border-color: #e8e8e8;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* ==================== Add Tab ==================== */
+
+.custom-tabs-extra {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-right: 8px;
+}
+
+.add-tab-trigger {
+  position: relative;
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px dashed #d9d9d9;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #999;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.add-tab-trigger:hover {
+  color: #1890ff;
+  border-color: #1890ff;
+}
+
+/* ==================== Page Indicator ==================== */
+
+.page-indicator {
+  display: inline-flex;
+  align-items: center;
+  font-size: 13px;
+  color: #999;
+  margin-right: 8px;
+  user-select: none;
+  white-space: nowrap;
+}

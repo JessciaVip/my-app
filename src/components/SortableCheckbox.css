@@ -1,0 +1,90 @@
+/* ==================== 可排序复选框列表样式 ==================== */
+
+/* 列表容器：固定最小宽度，最大高度限制，超出垂直滚动 */
+.sortable-checkbox-list {
+  min-width: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden; /* 防止水平方向撑开父容器 */
+}
+
+/* Checkbox.Group 占满整行宽度 */
+.sortable-checkbox-list .ant-checkbox-group {
+  display: block;
+  width: 100%;
+}
+
+/* ==================== 列表项样式 ==================== */
+
+/* 单个列表项：flex 布局，手柄在左，checkbox 在右 */
+.sortable-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  box-sizing: border-box;
+}
+
+/* hover 时显示背景色和手型光标（提示可点击切换 checkbox） */
+.sortable-item:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+/* 正在拖拽时的高亮样式 */
+.sortable-item.dragging {
+  background-color: #e6f7ff;
+  border-color: #1890ff;
+}
+
+/* ==================== 拖拽手柄样式 ==================== */
+
+/* 手柄默认样式：灰色，显示抓手光标 */
+.drag-handle {
+  margin-right: 8px;
+  color: #999;
+  user-select: none;
+  cursor: grab;
+  touch-action: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* 提升优先级，确保 hover 时 grab 不被父级 .sortable-item:hover 的 pointer 覆盖 */
+.sortable-item:not(.fixed) .drag-handle {
+  cursor: grab;
+}
+
+/* 非固定项 hover 时手柄高亮为品牌色 */
+.sortable-item:not(.fixed):hover .drag-handle {
+  color: #1890ff;
+}
+
+/* 固定项手柄：置灰 + 禁止光标 */
+.drag-handle.fixed {
+  color: #d9d9d9;
+  cursor: not-allowed;
+}
+
+/* ==================== Checkbox 样式 ==================== */
+
+/* checkbox 占据剩余空间 */
+.sortable-item .ant-checkbox-wrapper {
+  flex: 1;
+}
+
+/* ==================== 固定项样式 ==================== */
+
+/* 固定项：默认光标 + 浅灰背景，不可拖拽 */
+.sortable-item.fixed {
+  cursor: default;
+  background-color: #fafafa;
+}
+
+/* 固定项 hover 不改变背景色（区别于可拖拽项） */
+.sortable-item.fixed:hover {
+  background-color: #fafafa;
+}

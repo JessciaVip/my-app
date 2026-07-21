@@ -1,0 +1,130 @@
+/* ==================== 整体容器 ==================== */
+
+.tabs-change-index {
+  width: 100%;
+}
+
+/* ==================== Tab 栏（导航区域） ==================== */
+
+.tabs-change-index-nav {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+/* Tab header 列表容器，flex 横向排列 */
+.tabs-change-index-list {
+  display: flex;
+}
+
+/* ==================== 单个 Tab 项 ==================== */
+
+.tab-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* 非激活 tab 悬停态 */
+.tab-item:hover:not(.tab-item-active) {
+  color: #1677ff;
+}
+
+/* 激活态 tab：白底 + 边框，视觉上与内容区域连为一体 */
+.tab-item-active {
+  background: #fff;
+  border-color: #e8e8e8;
+  box-shadow: 1px 0 0 #fff;
+}
+
+/* 拖拽中的原始位置占位，降低透明度 */
+.tab-item-dragging {
+  opacity: 0.35;
+}
+
+/* ==================== 拖拽手柄 ==================== */
+
+/* 默认状态：灰色，hover 时变蓝色 */
+.tab-item-drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #bfbfbf;
+  cursor: grab;
+  transition: color 0.2s;
+  padding: 0 2px;
+}
+
+.tab-item-drag-handle:hover {
+  color: #1677ff;
+}
+
+/* 按下时切换为抓取光标 */
+.tab-item-drag-handle:active {
+  cursor: grabbing;
+}
+
+/* 拖拽浮动层中的手柄样式 */
+.tab-item-drag-handle-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #1677ff;
+}
+
+/* ==================== Tab 标题文本 ==================== */
+
+.tab-item-label {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+/* 激活态文本颜色加深 */
+.tab-item-active .tab-item-label {
+  color: #1677ff;
+  font-weight: 500;
+}
+
+/* ==================== 拖拽浮动预览层 ==================== */
+
+.tab-item-overlay {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #1677ff;
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  background: #fff;
+  cursor: grabbing;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(22, 119, 255, 0.2);
+  opacity: 1 !important;
+}
+
+/* ==================== Tab 内容区域 ==================== */
+
+.tabs-change-index-content {
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  min-height: 200px;
+}
