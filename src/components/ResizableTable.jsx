@@ -183,8 +183,53 @@ function ResizableTable({ columns, dataSource, cacheKey, ...restProps }) {
     return columns;
   });
 
+  /** 记录上一次的列配置，用于检测列变化 */
+  const prevColumnsRef = useRef(columns);
+
   /** 表格外层容器引用，用于计算蓝线的相对位置 */
   const tableRef = useRef(null);
+
+  /**
+   * 同步外部 columns 变化到内部 currentColumns，并强制同步表头表体滚动
+   * 当外部通过 SortableCheckbox 改变列数时，确保表格更新且滚动位置正确
+   */
+  useEffect(() => {
+    const prevColumns = prevColumnsRef.current;
+    const columnsChanged = prevColumns.length !== columns.length;
+
+    // 同步列配置
+    if (!cacheKey) {
+      setCurrentColumns(columns);
+    } else {
+      const cached = loadCache(cacheKey);
+      if (cached && cached.columnWidths) {
+        setCurrentColumns(
+          columns.map((col) => {
+            const key = col.key || col.dataIndex;
+            const w = cached.columnWidths[key];
+            return w ? { ...col, width: w } : col;
+          })
+        );
+      } else {
+        setCurrentColumns(columns);
+      }
+    }
+
+    // 列数变化后，强制同步表头和表体的滚动位置
+    if (columnsChanged && tableRef.current) {
+      requestAnimationFrame(() => {
+        if (!tableRef.current) return;
+        const bodyTable = tableRef.current.querySelector('.ant-table-body');
+        if (bodyTable) {
+          const currentScrollLeft = bodyTable.scrollLeft;
+          bodyTable.scrollLeft = 0;
+          bodyTable.scrollLeft = currentScrollLeft;
+        }
+      });
+    }
+
+    prevColumnsRef.current = columns;
+  }, [columns, cacheKey]);
   /** 蓝线指示器 DOM 引用，通过原生 style 操作避免 React 渲染 */
   const indicatorRef = useRef(null);
   /**

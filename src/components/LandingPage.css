@@ -25,6 +25,7 @@
 
 .LandingPage-nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
 }
@@ -39,6 +40,8 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
   transition: transform 0.2s, box-shadow 0.2s;
 }
 

@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from './history';
+import { LeaveGuardProvider } from './components/LeaveGuard';
+import RouteNavigationConfirm from './components/RouteNavigationConfirm';
 import KanbanBoard from './components/KanbanBoard';
 import LandingPage from './components/LandingPage';
 import TabsFilter from './components/TabsFilter';
@@ -6,6 +10,7 @@ import DraggableTable from './components/DraggableTable';
 import ResizableTable from './components/ResizableTable';
 import SortableCheckbox from './components/SortableCheckbox';
 import TabsChangeIndex from './components/TabsChangeIndex';
+import WangEditorFullscreen from './components/WangEditorFullscreen';
 import './App.css';
 
 function CheckboxDemo({ onBack }) {
@@ -126,82 +131,133 @@ const initialData = {
   },
 };
 
-function App() {
-  const [page, setPage] = useState('home');
+// ==================== 路由跳转确认演示页 ====================
 
-  switch (page) {
-    case 'board':
-      return (
-        <div className="App">
-          <KanbanBoard initialData={initialData} onBack={() => setPage('home')} />
-        </div>
-      );
-    case 'filter':
-      return (
-        <div className="App">
-          <TabsFilter onBack={() => setPage('home')} />
-        </div>
-      );
-    case 'table':
-      return (
-        <div className="App" style={{ padding: 24 }}>
-          <button onClick={() => setPage('home')} style={{ marginBottom: 16 }}>
-            返回首页
-          </button>
-          <h2>可拖拽列排序表格</h2>
-          <DraggableTable
-            columns={demoColumns}
-            dataSource={demoData}
-            pagination={{ pageSize: 10 }}
-            scroll={{ x: 1500 }}
-            onColumnsChange={(cols) => console.log('columns changed:', cols)}
+function RouteNavigationConfirmDemo() {
+  const [hasEditor, setHasEditor] = useState(true);
+
+  return (
+    <RouteNavigationConfirm shouldConfirm={() => hasEditor}>
+      <div className="App" style={{ padding: 24 }}>
+        <h2>路由跳转确认</h2>
+        <p style={{ marginBottom: 16 }}>
+          点击下方任意按钮离开本页时，都会弹出确认框：取消则不跳转，确定则继续跳转。
+        </p>
+        <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+          <input
+            type="checkbox"
+            checked={hasEditor}
+            onChange={(e) => setHasEditor(e.target.checked)}
           />
-        </div>
-      );
-    case 'resizable':
-      return (
-        <div className="App" style={{ padding: 24 }}>
-          <button onClick={() => setPage('home')} style={{ marginBottom: 16 }}>
-            返回首页
+          模拟页面存在 wangEditor（勾选才触发弹窗）
+        </label>
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+          <button onClick={() => history.push('/')}>返回首页</button>
+          <button onClick={() => history.push('/board')}>去看板</button>
+          <button onClick={() => history.push('/filter')}>去任务筛选器</button>
+          <button onClick={() => history.goBack()}>浏览器后退</button>
+          <button onClick={() => window.open('https://example.com', '_blank')}>
+            window.open 新标签页
           </button>
-          <h2>调整列宽表格（带缓存）</h2>
-          <ResizableTable
-            columns={demoColumns}
-            dataSource={demoData}
-            cacheKey="demo-table"
-            pagination={{ pageSize: 10 }}
-            scroll={{ x: 1500 }}
-          />
-        </div>
-      );
-    case 'checkbox':
-      return <CheckboxDemo onBack={() => setPage('home')} />;
-    case 'tabsChangeIndex':
-      return (
-        <div className="App" style={{ padding: 24 }}>
-          <button onClick={() => setPage('home')} style={{ marginBottom: 16 }}>
-            返回首页
+          <button onClick={() => window.open('/', '_self')}>
+            window.open 当前页跳转
           </button>
-          <h2>Tabs 拖拽排序</h2>
-          <TabsChangeIndex
-            tabs={[
-              { key: '1', label: '选项一', children: <div>选项一的内容</div> },
-              { key: '2', label: '选项二', children: <div>选项二的内容</div> },
-              { key: '3', label: '选项三', children: <div>选项三的内容</div> },
-              { key: '4', label: '选项四', children: <div>选项四的内容</div> },
-            ]}
-            defaultActiveKey="1"
-            onChange={(newTabs) => console.log('tabs order changed:', newTabs)}
-          />
         </div>
-      );
-    default:
-      return (
-        <div className="App">
-          <LandingPage onNavigate={(p) => setPage(p)} />
-        </div>
-      );
-  }
+      </div>
+    </RouteNavigationConfirm>
+  );
+}
+
+// ==================== 路由配置 ====================
+
+function App() {
+  console.log(history);
+  return (
+    <Router history={history}>
+      <LeaveGuardProvider>
+        <Switch>
+          <Route path="/board">
+            <KanbanBoard initialData={initialData} onBack={() => history.push('/')} />
+          </Route>
+          <Route path="/filter">
+            <TabsFilter onBack={() => history.push('/')} />
+          </Route>
+          <Route path="/table">
+            <div className="App" style={{ padding: 24 }}>
+              <button onClick={() => history.push('/')} style={{ marginBottom: 16 }}>
+                返回首页
+              </button>
+              <h2>可拖拽列排序表格</h2>
+              <DraggableTable
+                columns={demoColumns}
+                dataSource={demoData}
+                pagination={{ pageSize: 10 }}
+                scroll={{ x: 1500 }}
+                onColumnsChange={(cols) => console.log('columns changed:', cols)}
+              />
+            </div>
+          </Route>
+          <Route path="/resizable">
+            <div className="App" style={{ padding: 24 }}>
+              <button onClick={() => history.push('/')} style={{ marginBottom: 16 }}>
+                返回首页
+              </button>
+              <h2>调整列宽表格（带缓存）</h2>
+              <ResizableTable
+                columns={demoColumns}
+                dataSource={demoData}
+                cacheKey="demo-table"
+                pagination={{ pageSize: 10 }}
+                scroll={{ x: 1500 }}
+              />
+            </div>
+          </Route>
+          <Route path="/checkbox">
+            <CheckboxDemo onBack={() => history.push('/')} />
+          </Route>
+          <Route path="/tabsChangeIndex">
+            <div className="App" style={{ padding: 24 }}>
+              <button onClick={() => history.push('/')} style={{ marginBottom: 16 }}>
+                返回首页
+              </button>
+              <h2>Tabs 拖拽排序</h2>
+              <TabsChangeIndex
+                tabs={[
+                  { key: '1', label: '选项一', children: <div>选项一的内容</div> },
+                  { key: '2', label: '选项二', children: <div>选项二的内容</div> },
+                  { key: '3', label: '选项三', children: <div>选项三的内容</div> },
+                  { key: '4', label: '选项四', children: <div>选项四的内容</div> },
+                  { key: '5', label: '选项五', children: <div>选项五的内容</div> },
+                ]}
+                defaultActiveKey="1"
+                onChange={(newTabs) => console.log('新顺序:', newTabs.map(t => t.label))}
+              />
+            </div>
+          </Route>
+          <Route path="/editor">
+            <div className="App" style={{ padding: 24, height: '100vh', display: 'flex', flexDirection: 'column' }}>
+              <button onClick={() => history.push('/')} style={{ marginBottom: 16 }}>
+                返回首页
+              </button>
+              <h2>WangEditor 全屏示例</h2>
+              <div style={{ flex: 1, border: '1px solid #ccc', borderRadius: 4 }}>
+                <WangEditorFullscreen
+                  value=""
+                  onChange={(val) => console.log('editor content:', val)}
+                />
+              </div>
+            </div>
+          </Route>
+          <Route path="/route-confirm">
+            <RouteNavigationConfirmDemo />
+          </Route>
+          <Route path="/" exact>
+            <LandingPage />
+          </Route>
+        </Switch>
+      </LeaveGuardProvider>
+    </Router>
+  );
 }
 
 export default App;

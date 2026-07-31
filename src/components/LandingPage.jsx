@@ -1,31 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './LandingPage.css';
 
-function LandingPage({ onNavigate }) {
+function LandingPage() {
   return (
     <div className="LandingPage">
       <div className="LandingPage-content">
         <h1 className="LandingPage-title">项目任务看板</h1>
         <p className="LandingPage-description">高效管理你的迭代任务与开发流程</p>
         <div className="LandingPage-nav">
-          <button className="LandingPage-button" onClick={() => onNavigate('board')}>
+          <Link className="LandingPage-button" to="/board">
             进入看板
-          </button>
-          <button className="LandingPage-button LandingPage-button-secondary" onClick={() => onNavigate('filter')}>
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/filter">
             任务筛选器
-          </button>
-          <button className="LandingPage-button LandingPage-button-secondary" onClick={() => onNavigate('table')}>
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/table">
             拖拽表格
-          </button>
-          <button className="LandingPage-button LandingPage-button-secondary" onClick={() => onNavigate('resizable')}>
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/resizable">
             调整列宽表格
-          </button>
-          <button className="LandingPage-button LandingPage-button-secondary" onClick={() => onNavigate('checkbox')}>
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/checkbox">
             拖拽 Checkbox
-          </button>
-          <button className="LandingPage-button LandingPage-button-secondary" onClick={() => onNavigate('tabsChangeIndex')}>
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/tabsChangeIndex">
             Tabs 拖拽排序
-          </button>
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/editor">
+            WangEditor 全屏
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/route-confirm">
+            路由跳转确认
+          </Link>
         </div>
       </div>
     </div>

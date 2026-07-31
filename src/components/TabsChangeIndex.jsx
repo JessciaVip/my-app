@@ -17,25 +17,29 @@ import { CSS } from '@dnd-kit/utilities';
 import { restrictToHorizontalAxis } from '@dnd-kit/modifiers';
 import './TabsChangeIndex.css';
 
+// ==================== 单个可排序 Tab ====================
+
 /**
- * 可排序的单个 Tab 项
+ * 可排序的 Tab 项
  *
- * 通过 useSortable hook 集成 @dnd-kit 的拖拽能力，
- * 每个 tab header 是一个独立的可排序元素。
+ * 与 SortableCheckbox 中的 SortableItem 同样的模式：
+ * - useSortable 获取 transform / transition / isDragging
+ * - CSS.Transform.toString(transform) 实现丝滑位移动画
+ * - listeners 仅绑定到 ⠿ 手柄，不影响 tab 点击
  *
- * @param {string} id - 唯一标识，对应 tab.key
- * @param {string} label - tab 显示文本
+ * @param {string}  id       - 唯一标识（tab.key）
+ * @param {string}  label    - 显示文本
  * @param {boolean} isActive - 是否为当前选中项
- * @param {function} onClick - 点击切换回调
+ * @param {function} onClick  - 点击切换回调
  */
 function SortableTabItem({ id, label, isActive, onClick }) {
   const {
-    attributes,    // 无障碍属性
-    listeners,     // 拖拽事件监听器
-    setNodeRef,    // DOM ref 回调
-    transform,     // 拖拽位移变换
-    transition,    // 拖拽结束过渡动画
-    isDragging,    // 是否正在被拖拽
+    attributes,    // 无障碍属性（role、tabIndex 等）
+    listeners,     // 拖拽事件监听器，绑定到 ⠿ 手柄
+    setNodeRef,    // dnd-kit 需要的 DOM ref 回调
+    transform,     // 拖拽时的位移变换
+    transition,    // 拖拽结束后的过渡动画
+    isDragging,    // 当前是否正在被拖拽
   } = useSortable({ id });
 
   const style = {
@@ -48,27 +52,32 @@ function SortableTabItem({ id, label, isActive, onClick }) {
     <div
       ref={setNodeRef}
       style={style}
-      className={`tab-item ${isActive ? 'tab-item-active' : ''} ${isDragging ? 'tab-item-dragging' : ''}`}
+      className={`sortable-tab ${isActive ? 'sortable-tab-active' : ''} ${isDragging ? 'sortable-tab-dragging' : ''}`}
       onClick={() => onClick(id)}
     >
-      <span className="tab-item-drag-handle" {...listeners} {...attributes}>
+      {/* 拖拽手柄：listeners 仅绑定到这里，点击 tab 文本不会触发拖拽 */}
+      <span className="sortable-tab-handle" {...listeners} {...attributes}>
         ⠿
       </span>
-      <span className="tab-item-label">{label}</span>
+      <span className="sortable-tab-label">{label}</span>
     </div>
   );
 }
 
+// ==================== 主组件 ====================
+
 /**
  * 可拖拽排序的 Tabs 组件
  *
- * 使用 @dnd-kit 实现 tab 拖拽排序，视觉风格与 Ant Design card tabs 一致。
- * 通过 props 接收数据，排序变化后通过 onChange 回调通知父组件。
+ * 与 SortableCheckbox 相同的拖拽模式：
+ * - SortableContext + useSortable + horizontalListSortingStrategy
+ * - CSS.Transform.toString(transform) 实现丝滑位移
+ * - DragOverlay 浮动预览
  *
- * @param {Array}    tabs            - tab 数据数组，每项 { key, label, children }
+ * @param {Array}    tabs             - 每项 { key, label, children }
  * @param {string}   defaultActiveKey - 默认选中的 tab key
- * @param {function} onChange         - 排序或切换时的回调，参数为新的 tabs 数组
- * @param {string}   className        - 额外的 CSS 类名
+ * @param {function} onChange          - 排序变化回调
+ * @param {string}   className         - 额外 CSS 类名
  */
 function TabsChangeIndex({ tabs: initialTabs, defaultActiveKey, onChange, className }) {
   const [tabs, setTabs] = useState(initialTabs);
@@ -76,23 +85,22 @@ function TabsChangeIndex({ tabs: initialTabs, defaultActiveKey, onChange, classN
   const [activeId, setActiveId] = useState(null);
 
   /**
-   * PointerSensor 配置：鼠标移动 5px 后才激活拖拽，
-   * 避免点击 tab 切换时误触拖拽。
+   * PointerSensor 配置：移动 3px 后才激活拖拽
+   * 与 SortableCheckbox 一致，避免轻微点击误触
    */
   const sensors = useSensors(
     useSensor(PointerSensor, {
-      activationConstraint: { distance: 5 },
+      activationConstraint: { distance: 3 },
     })
   );
 
-  /** 拖拽开始时记录当前被拖拽的 tab id */
+  /** 拖拽开始：记录被拖拽的 tab id */
   const handleDragStart = (event) => {
     setActiveId(event.active.id);
   };
 
   /**
-   * 拖拽结束时计算新的排序并更新状态，
-   * 通过 onChange 回调通知父组件。
+   * 拖拽结束：重排数组，与 SortableCheckbox 的 handleDragEnd 逻辑一致
    */
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -123,8 +131,8 @@ function TabsChangeIndex({ tabs: initialTabs, defaultActiveKey, onChange, classN
 
   return (
     <div className={`tabs-change-index ${className || ''}`}>
-      {/* Tab 栏：包含可排序的 tab header 列表 */}
-      <div className="tabs-change-index-nav">
+      {/* Tab 栏 */}
+      <div className="tabs-change-index-bar">
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -147,12 +155,12 @@ function TabsChangeIndex({ tabs: initialTabs, defaultActiveKey, onChange, classN
             </div>
           </SortableContext>
 
-          {/* 拖拽时的浮动预览层，跟随鼠标移动 */}
+          {/* 拖拽浮动预览层 */}
           <DragOverlay dropAnimation={null}>
             {draggingTab ? (
-              <div className="tab-item tab-item-active tab-item-overlay">
-                <span className="tab-item-drag-handle-overlay">⠿</span>
-                <span className="tab-item-label">{draggingTab.label}</span>
+              <div className="sortable-tab sortable-tab-active sortable-tab-overlay">
+                <span className="sortable-tab-handle-overlay">⠿</span>
+                <span className="sortable-tab-label">{draggingTab.label}</span>
               </div>
             ) : null}
           </DragOverlay>

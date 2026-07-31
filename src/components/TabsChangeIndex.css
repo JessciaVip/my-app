@@ -4,20 +4,22 @@
   width: 100%;
 }
 
-/* ==================== Tab 栏（导航区域） ==================== */
+/* ==================== Tab 栏 ==================== */
 
-.tabs-change-index-nav {
+.tabs-change-index-bar {
   border-bottom: 1px solid #e8e8e8;
 }
 
-/* Tab header 列表容器，flex 横向排列 */
+/* Tab header 列表：横向排列，flex-wrap: nowrap 防止换行 */
 .tabs-change-index-list {
   display: flex;
+  flex-wrap: nowrap;
 }
 
 /* ==================== 单个 Tab 项 ==================== */
 
-.tab-item {
+/* 与 SortableCheckbox 的 .sortable-item 同样的模式 */
+.sortable-tab {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -30,54 +32,61 @@
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
-  transition: background 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
   position: relative;
   flex-shrink: 0;
 }
 
-/* 非激活 tab 悬停态 */
-.tab-item:hover:not(.tab-item-active) {
-  color: #1677ff;
+/* hover 时显示背景色 */
+.sortable-tab:hover {
+  background-color: #f5f5f5;
 }
 
-/* 激活态 tab：白底 + 边框，视觉上与内容区域连为一体 */
-.tab-item-active {
+/* 激活态：白底 + 边框，与内容区域连为一体 */
+.sortable-tab-active {
   background: #fff;
   border-color: #e8e8e8;
   box-shadow: 1px 0 0 #fff;
 }
 
-/* 拖拽中的原始位置占位，降低透明度 */
-.tab-item-dragging {
+.sortable-tab-active:hover {
+  background: #fff;
+}
+
+/* 拖拽中的原始位置：半透明 */
+.sortable-tab-dragging {
   opacity: 0.35;
 }
 
 /* ==================== 拖拽手柄 ==================== */
 
-/* 默认状态：灰色，hover 时变蓝色 */
-.tab-item-drag-handle {
-  display: flex;
+/* 与 SortableCheckbox 的 .drag-handle 同样的模式 */
+.sortable-tab-handle {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
   color: #bfbfbf;
   cursor: grab;
+  touch-action: none;
   transition: color 0.2s;
   padding: 0 2px;
+  position: relative;
+  z-index: 1;
 }
 
-.tab-item-drag-handle:hover {
+/* hover 时手柄高亮为品牌色 */
+.sortable-tab:hover .sortable-tab-handle {
   color: #1677ff;
 }
 
-/* 按下时切换为抓取光标 */
-.tab-item-drag-handle:active {
+.sortable-tab-handle:active {
   cursor: grabbing;
 }
 
 /* 拖拽浮动层中的手柄样式 */
-.tab-item-drag-handle-overlay {
-  display: flex;
+.sortable-tab-handle-overlay {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   font-size: 12px;
@@ -86,35 +95,38 @@
 
 /* ==================== Tab 标题文本 ==================== */
 
-.tab-item-label {
+.sortable-tab-label {
   max-width: 140px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 14px;
+  color: #333;
 }
 
 /* 激活态文本颜色加深 */
-.tab-item-active .tab-item-label {
+.sortable-tab-active .sortable-tab-label {
   color: #1677ff;
   font-weight: 500;
 }
 
 /* ==================== 拖拽浮动预览层 ==================== */
 
-.tab-item-overlay {
+.sortable-tab-overlay {
   display: flex;
   align-items: center;
   gap: 6px;
   height: 40px;
   padding: 0 16px;
-  border: 1px solid #1677ff;
+  border: 1px solid #4096ff;
   border-bottom: none;
-  border-radius: 4px 4px 0 0;
-  background: #fff;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f5ff 100%);
   cursor: grabbing;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(22, 119, 255, 0.2);
+  box-shadow:
+    0 8px 24px rgba(22, 119, 255, 0.15),
+    0 2px 6px rgba(22, 119, 255, 0.1);
   opacity: 1 !important;
 }
 
