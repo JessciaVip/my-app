@@ -1,0 +1,51 @@
+/* ==================== 整体容器 ==================== */
+
+.tabs-change-basic-antd {
+  width: 100%;
+}
+
+/* ==================== 单个可排序 Tab 节点 ==================== */
+
+/* 包裹在 .ant-tabs-tab 外层的 sortable 容器 */
+.antd-sortable-tab-node {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 给 antd 的 tab 增加一点水平内边距，避免手柄紧贴文本 */
+.antd-sortable-tab-node .ant-tabs-tab {
+  padding: 14px 8px;
+}
+
+/* 拖拽中的原始位置：半透明 */
+.antd-sortable-tab-node-dragging {
+  opacity: 0.35;
+}
+
+/* ==================== 拖拽手柄 ==================== */
+
+/* 手柄插入到 .ant-tabs-tab 内部的最前面 */
+.antd-sortable-tab-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  padding: 2px 4px;
+  font-size: 13px;
+  color: #bfbfbf;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  border-radius: 3px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+/* hover 时手柄高亮为品牌色 */
+.antd-sortable-tab-node:hover .antd-sortable-tab-handle {
+  color: #1677ff;
+  background-color: #f0f5ff;
+}
+
+.antd-sortable-tab-handle:active {
+  cursor: grabbing;
+}

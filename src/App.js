@@ -3,14 +3,20 @@ import { Router, Route, Switch } from 'react-router-dom';
 import history from './history';
 import { LeaveGuardProvider } from './components/LeaveGuard';
 import RouteNavigationConfirm from './components/RouteNavigationConfirm';
+import InterceptOnClickDemo from './components/InterceptOnClickDemo';
 import KanbanBoard from './components/KanbanBoard';
 import LandingPage from './components/LandingPage';
 import TabsFilter from './components/TabsFilter';
 import DraggableTable from './components/DraggableTable';
 import ResizableTable from './components/ResizableTable';
 import SortableCheckbox from './components/SortableCheckbox';
+import SortableListDemo from './components/SortableListDemo';
 import TabsChangeIndex from './components/TabsChangeIndex';
+import TabsChangeBasicAntd from './components/TabsChangeBasicAntd';
+import TabsChangeBasicAntd2 from './components/TabsChangeBasicAntd2';
 import WangEditorFullscreen from './components/WangEditorFullscreen';
+import WangEditorLimitDemo from './components/WangEditorLimitDemo';
+import TrimSelectDemo from './components/TrimSelectDemo';
 import './App.css';
 
 function CheckboxDemo({ onBack }) {
@@ -215,6 +221,9 @@ function App() {
           <Route path="/checkbox">
             <CheckboxDemo onBack={() => history.push('/')} />
           </Route>
+          <Route path="/sortable-list">
+            <SortableListDemo onBack={() => history.push('/')} />
+          </Route>
           <Route path="/tabsChangeIndex">
             <div className="App" style={{ padding: 24 }}>
               <button onClick={() => history.push('/')} style={{ marginBottom: 16 }}>
@@ -224,6 +233,44 @@ function App() {
               <TabsChangeIndex
                 tabs={[
                   { key: '1', label: '选项一', children: <div>选项一的内容</div> },
+                  { key: '2', label: '选项二', children: <div>选项二的内容</div> },
+                  { key: '3', label: '选项三', children: <div>选项三的内容</div> },
+                  { key: '4', label: '选项四', children: <div>选项四的内容</div> },
+                  { key: '5', label: '选项五', children: <div>选项五的内容</div> },
+                ]}
+                defaultActiveKey="1"
+                onChange={(newTabs) => console.log('新顺序:', newTabs.map(t => t.label))}
+              />
+            </div>
+          </Route>
+          <Route path="/tabsChangeBasicAntd">
+            <div className="App" style={{ padding: 24 }}>
+              <button onClick={() => history.push('/')} style={{ marginBottom: 16 }}>
+                返回首页
+              </button>
+              <h2>Tabs 拖拽排序（antd Tabs 实现）</h2>
+              <TabsChangeBasicAntd
+                tabs={[
+                  { key: '1', label: '选项一选项一选项一', children: <div>选项一的内容</div> },
+                  { key: '2', label: '选项二', children: <div>选项二的内容</div> },
+                  { key: '3', label: '选项三', children: <div>选项三的内容</div> },
+                  { key: '4', label: '选项四', children: <div>选项四的内容</div> },
+                  { key: '5', label: '选项五', children: <div>选项五的内容</div> },
+                ]}
+                defaultActiveKey="1"
+                onChange={(newTabs) => console.log('新顺序:', newTabs.map(t => t.label))}
+              />
+            </div>
+          </Route>
+          <Route path="/tabsChangeBasicAntd2">
+            <div className="App" style={{ padding: 24 }}>
+              <button onClick={() => history.push('/')} style={{ marginBottom: 16 }}>
+                返回首页
+              </button>
+              <h2>Tabs 拖拽排序（antd Tabs + 蓝线/浮层）</h2>
+              <TabsChangeBasicAntd2
+                tabs={[
+                  { key: '1', label: '选项一选项一选项一', children: <div>选项一的内容</div> },
                   { key: '2', label: '选项二', children: <div>选项二的内容</div> },
                   { key: '3', label: '选项三', children: <div>选项三的内容</div> },
                   { key: '4', label: '选项四', children: <div>选项四的内容</div> },
@@ -248,8 +295,17 @@ function App() {
               </div>
             </div>
           </Route>
+          <Route path="/editor-limit">
+            <WangEditorLimitDemo />
+          </Route>
           <Route path="/route-confirm">
             <RouteNavigationConfirmDemo />
+          </Route>
+          <Route path="/intercept-onclick">
+            <InterceptOnClickDemo />
+          </Route>
+          <Route path="/trim-select">
+            <TrimSelectDemo onBack={() => history.push('/')} />
           </Route>
           <Route path="/" exact>
             <LandingPage />

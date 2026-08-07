@@ -1,0 +1,87 @@
+/* ==================== 整体容器 ==================== */
+
+.tabs-change-basic-antd2 {
+  width: 100%;
+}
+
+/* 包裹 DefaultTabBar 的容器，用于定位蓝色插入线 */
+.antd2-tabs-nav {
+  position: relative;
+}
+
+/* ==================== 单个可拖拽 Tab 节点 ==================== */
+
+.antd2-tab-node {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 给 antd 的 tab 增加一点水平内边距，避免手柄紧贴文本 */
+.antd2-tab-node .ant-tabs-tab {
+  padding: 14px 8px;
+}
+
+/* 拖拽中的原始位置：半透明、保持不动 */
+.antd2-tab-node-dragging {
+  opacity: 0.4;
+}
+
+/* ==================== 拖拽手柄 ==================== */
+
+.antd2-tab-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  padding: 2px 4px;
+  font-size: 13px;
+  color: #bfbfbf;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  border-radius: 3px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+/* hover 时手柄高亮为品牌色 */
+.antd2-tab-node:hover .antd2-tab-handle {
+  color: #1677ff;
+  background-color: #f0f5ff;
+}
+
+.antd2-tab-handle:active {
+  cursor: grabbing;
+}
+
+/* ==================== 蓝色插入线 ==================== */
+
+.antd2-insert-indicator {
+  position: absolute;
+  top: 0;
+  width: 0;
+  border-left: 1px solid #1890ff;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ==================== 拖拽浮层 ==================== */
+
+/* 复用 antd .ant-tabs-tab 外观，覆盖为浮层样式 */
+.antd2-overlay-tab.ant-tabs-tab {
+  padding: 14px 8px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: grabbing;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+/* 长文案不换行，避免浮层文字变挤 */
+.antd2-overlay-tab .ant-tabs-tab-btn {
+  white-space: nowrap;
+}
+
+.antd2-tab-handle-overlay {
+  color: #1677ff;
+}
