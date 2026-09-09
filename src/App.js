@@ -17,6 +17,12 @@ import TabsChangeBasicAntd2 from './components/TabsChangeBasicAntd2';
 import WangEditorFullscreen from './components/WangEditorFullscreen';
 import WangEditorLimitDemo from './components/WangEditorLimitDemo';
 import TrimSelectDemo from './components/TrimSelectDemo';
+import MassCheckboxPopover from './components/MassCheckboxPopover';
+import MassCheckboxPopoverRw from './components/MassCheckboxPopoverRw';
+import MassCheckboxPopoverRcvl from './components/MassCheckboxPopoverRcvl';
+import MassCheckboxAccordionPopoverRcvl from './components/MassCheckboxAccordionPopoverRcvl';
+import MassCheckboxAccordionPopover from './components/MassCheckboxAccordionPopover';
+import MassCheckboxAccordionVirtuosoPopover from './components/MassCheckboxAccordionVirtuosoPopover';
 import './App.css';
 
 function CheckboxDemo({ onBack }) {
@@ -306,6 +312,24 @@ function App() {
           </Route>
           <Route path="/trim-select">
             <TrimSelectDemo onBack={() => history.push('/')} />
+          </Route>
+          <Route path="/mass-checkbox">
+            <MassCheckboxPopover onBack={() => history.push('/')} />
+          </Route>
+          <Route path="/mass-checkbox-rw">
+            <MassCheckboxPopoverRw onBack={() => history.push('/')} />
+          </Route>
+          <Route path="/mass-checkbox-rcvl">
+            <MassCheckboxPopoverRcvl onBack={() => history.push('/')} />
+          </Route>
+          <Route path="/mass-accordion-rcvl">
+            <MassCheckboxAccordionPopoverRcvl onBack={() => history.push('/')} />
+          </Route>
+          <Route path="/mass-accordion">
+            <MassCheckboxAccordionPopover onBack={() => history.push('/')} />
+          </Route>
+          <Route path="/mass-accordion-virtuoso">
+            <MassCheckboxAccordionVirtuosoPopover onBack={() => history.push('/')} />
           </Route>
           <Route path="/" exact>
             <LandingPage />

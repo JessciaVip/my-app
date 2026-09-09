@@ -51,6 +51,24 @@ function LandingPage() {
           <Link className="LandingPage-button LandingPage-button-secondary" to="/trim-select">
             TrimSelect 输入法友好
           </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/mass-checkbox">
+            Popover 2000 Checkbox
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/mass-checkbox-rw">
+            Popover 2000 Checkbox（react-window）
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/mass-checkbox-rcvl">
+            Popover 2000 Checkbox（rc-virtual-list）
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/mass-accordion-rcvl">
+            分组可展开（300组·扁平化·默认全展开）
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/mass-accordion">
+            分组可展开（嵌套 DOM + 组内虚拟）
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/mass-accordion-virtuoso">
+            分组可展开（react-virtuoso）
+          </Link>
         </div>
       </div>
     </div>

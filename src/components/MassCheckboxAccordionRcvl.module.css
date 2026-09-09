@@ -1,0 +1,64 @@
+.wrapper {
+  width: 420px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.toolbar span {
+  margin-right: auto;
+  color: #555;
+  font-size: 13px;
+}
+
+.toolbarBtns {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* scrollWrap 已移除，List 自己管理滚动 */
+
+/* 组容器：对应你要的 .blockcollapse */
+.blockcollapse {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* 组标题：对应你要的 .title */
+.title {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 40px;
+  cursor: pointer;
+  background: #fafafa;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.title:hover {
+  background: #f0f0f0;
+}
+
+.count {
+  margin-left: 6px;
+  color: #999;
+  font-weight: normal;
+}
+
+/* content：checkbox 所在层 */
+.content {
+  border-top: 1px solid #f5f5f5;
+}
+
+.checkboxRow {
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #fafafa;
+}

@@ -1,0 +1,42 @@
+.MassCheckboxList-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.MassCheckboxList-toolbar span {
+  margin-right: auto;
+  color: #555;
+}
+
+.MassCheckboxList-viewport {
+  width: 360px;
+  overflow-y: auto;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  will-change: scroll-position;
+}
+
+.MassCheckboxList-row {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.MassCheckboxList-groupRow {
+  cursor: pointer;
+  background: #fafafa;
+  font-size: 14px;
+  user-select: none;
+}
+
+.MassCheckboxList-groupRow:hover {
+  background: #f0f0f0;
+}
+
+.MassCheckboxList-itemRow {
+  background: #fff;
+}

@@ -16,11 +16,14 @@
     "@wangeditor/editor-for-react": "^1.0.6",
     "antd": "^4.24.16",
     "history": "^4.10.1",
+    "rc-virtual-list": "^3.19.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-resizable": "^4.0.2",
     "react-router-dom": "5.0.0",
     "react-scripts": "^5.0.1",
+    "react-virtuoso": "^4.18.13",
+    "react-window": "^1.8.11",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
