@@ -69,6 +69,12 @@ function LandingPage() {
           <Link className="LandingPage-button LandingPage-button-secondary" to="/mass-accordion-virtuoso">
             分组可展开（react-virtuoso）
           </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/gray-pie">
+            灰色饼图（全 0 占位）
+          </Link>
+          <Link className="LandingPage-button LandingPage-button-secondary" to="/pie-legend">
+            饼图（图例底部·居中·可缩放）
+          </Link>
         </div>
       </div>
     </div>

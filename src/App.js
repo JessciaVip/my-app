@@ -23,6 +23,8 @@ import MassCheckboxPopoverRcvl from './components/MassCheckboxPopoverRcvl';
 import MassCheckboxAccordionPopoverRcvl from './components/MassCheckboxAccordionPopoverRcvl';
 import MassCheckboxAccordionPopover from './components/MassCheckboxAccordionPopover';
 import MassCheckboxAccordionVirtuosoPopover from './components/MassCheckboxAccordionVirtuosoPopover';
+import GrayPieChartDemo from './components/GrayPieChartDemo';
+import PieChartWithLegendDemo from './components/PieChartWithLegendDemo';
 import './App.css';
 
 function CheckboxDemo({ onBack }) {
@@ -330,6 +332,12 @@ function App() {
           </Route>
           <Route path="/mass-accordion-virtuoso">
             <MassCheckboxAccordionVirtuosoPopover onBack={() => history.push('/')} />
+          </Route>
+          <Route path="/gray-pie">
+            <GrayPieChartDemo onBack={() => history.push('/')} />
+          </Route>
+          <Route path="/pie-legend">
+            <PieChartWithLegendDemo onBack={() => history.push('/')} />
           </Route>
           <Route path="/" exact>
             <LandingPage />
